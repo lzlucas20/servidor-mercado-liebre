@@ -1,10 +1,11 @@
 import { test } from 'node:test'
 import assert from 'node:assert'
 import { request } from 'http';
-import { readFile } from 'fs/promises'
+import { readFile } from 'fs'
 import { join } from 'path'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
+import server from '../index.js';
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -36,6 +37,13 @@ async function makeRequest (method, path) {
     req.end();
   });
 }
+
+let listener;
+
+test('setup', async (t) => {
+  listener = server.listen(0); // Puerto aleatorio disponible
+  t.after(() => listener.close());
+});
 
 test('Servidor responde a rutas GET', async (t) => {
   // Test para la ruta principal
@@ -103,4 +111,4 @@ test('Servidor maneja rutas inexistentes', async (t) => {
     const response = await makeRequest('GET', '/ruta-inexistente')
     assert.strictEqual(response.statusCode, 404)
   })
-}) 
+})
