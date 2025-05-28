@@ -1,23 +1,11 @@
-import path from 'path'
 
-export const getContentType = (filePath) => {
-  const extname = path.extname(filePath)
-  switch (extname) {
-    case '.js':
-      return 'text/javascript'
-    case '.css':
-      return 'text/css'
-    case '.json':
-      return 'application/json'
-    case '.png':
-      return 'image/png'
-    case '.jpg':
-      return 'image/jpeg'
-    case '.jpeg':
-      return 'image/jpeg'
-    case '.svg':
-      return 'image/svg+xml'
-    default:
-      return 'text/plain'
-  }
+export function getContentType(filePath) {
+  if (filePath.endsWith('.html')) return 'text/html';
+  if (filePath.endsWith('.css')) return 'text/css';
+  if (filePath.endsWith('.js')) return 'application/javascript';
+  if (filePath.endsWith('.json')) return 'application/json';
+  if (filePath.endsWith('.svg')) return 'image/svg+xml';
+  if (filePath.endsWith('.png')) return 'image/png';
+  if (filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')) return 'image/jpeg';
+  return 'application/octet-stream';
 }

@@ -9,6 +9,16 @@
         <link rel="stylesheet" href="./css/styles.css">
     </head>
     <body>
+        <div id="mensaje-error" style="color:red"></div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('error') === 'usuario') {
+    document.getElementById('mensaje-error').textContent = 'Usuario ya registrado';
+  }
+  if (params.get('error') === 'datos') {
+    document.getElementById('mensaje-error').textContent = 'Usuario o contraseña incorrectos';
+  }
+</script>
         <header>
             <div class="top-header">
                 <div class="logo"> 
